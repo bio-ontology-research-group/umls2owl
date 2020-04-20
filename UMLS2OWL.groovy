@@ -106,7 +106,9 @@ new File(umlsdir+"MRCONSO.RRF").splitEachLine("\\|") { line ->
     def label = line[14].replaceAll("\\p{C}", "?")
     if (!opt.s || subset in subsets) {
 	def cl = factory.getOWLClass(IRI.create(onturi+uid))
+	manager.addAxiom(ontology,factory.getOWLSubClassOfAxiom(cl, factory.getOWLThing()))
 	addAnno(cl, factory.getRDFSLabel(), label)
+	addAnno(cl, factory.getOWLAnnotationProperty(IRI.create("http://phenomebrowser.net/xref")), subset+":"+sourceid)
     }
 }
 
